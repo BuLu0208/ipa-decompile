@@ -1,9 +1,18 @@
 Run mkdir -p /tmp/ghidra_proj output/original
-=== Java being used: ===
-openjdk version "17.0.18" 2026-01-20
-OpenJDK Runtime Environment Temurin-17.0.18+8 (build 17.0.18+8)
-OpenJDK 64-Bit Server VM Temurin-17.0.18+8 (build 17.0.18+8, mixed mode, sharing)
-=== Starting original decompilation ===
+  mkdir -p /tmp/ghidra_proj output/original
+  "$GHIDRA_HOME/support/analyzeHeadless" \
+    /tmp/ghidra_proj original \
+    -import "$PWD/binaries/TrollInstallerX_original" \
+    -postScript decompile_all.java "$PWD/output/original" \
+    -scriptPath "$PWD" \
+    -processor "AARCH64:LE:64:v8A" \
+    -max-cpu 4
+  ls -la output/original/ || echo "EMPTY"
+  shell: /usr/bin/bash -e {0}
+  env:
+    JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+    JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+    GHIDRA_HOME: /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC
 openjdk version "25.0.2" 2026-01-20 LTS
 OpenJDK Runtime Environment Temurin-25.0.2+10 (build 25.0.2+10-LTS)
 OpenJDK 64-Bit Server VM Temurin-25.0.2+10 (build 25.0.2+10-LTS, mixed mode)
@@ -11,14 +20,14 @@ INFO  Using log config file: jar:file:/home/runner/work/ipa-decompile/ipa-decomp
 INFO  Using log file: /home/runner/.config/ghidra/ghidra_11.2.1_PUBLIC/application.log (LoggingInitialization)  
 INFO  Loading user preferences: /home/runner/.config/ghidra/ghidra_11.2.1_PUBLIC/preferences (Preferences)  
 INFO  Searching for classes... (ClassSearcher)  
-INFO  Class search complete (1378 ms) (ClassSearcher)  
+INFO  Class search complete (1085 ms) (ClassSearcher)  
 INFO  Initializing SSL Context (SSLContextInitializer)  
 INFO  Initializing Random Number Generator... (SecureRandomFactory)  
 INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
 INFO  Trust manager disabled, cacerts have not been set (ApplicationTrustManagerFactory)  
 INFO  Starting cache cleanup: /var/tmp/runner-ghidra/fscache2 (FileCacheMaintenanceDaemon)  
 INFO  Finished cache cleanup, estimated storage used: 0 (FileCacheMaintenanceDaemon)  
-INFO  Headless startup complete (5790 ms) (AnalyzeHeadless)  
+INFO  Headless startup complete (3202 ms) (AnalyzeHeadless)  
 INFO  Class searcher loaded 57 extension points (18 false positives) (ClassSearcher)  
 WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::staticFieldOffset has been called by org.apache.felix.framework.util.SecureAction (file:/home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/Base/lib/org.apache.felix.framework-7.0.5.jar)
@@ -116,73 +125,45 @@ ERROR Failed to create namespace: Symbol name contains invalid characters: _merg
 ERROR Failed to create namespace: Symbol name contains invalid characters: doIndirectInstall(struct TrollInstallerX::Device) (DemangledObject)  
 INFO  -----------------------------------------------------
     AARCH64 ELF PLT Thunks                     0.000 secs
-    ASCII Strings                              0.480 secs
-    Apply Data Archives                        0.420 secs
-    Basic Constant Reference Analyzer          5.147 secs
-    CFStrings                                  0.033 secs
-    Call Convention ID                         2.480 secs
-    Call-Fixup Installer                       0.026 secs
-    Create Address Tables                      0.111 secs
-    Create Address Tables - One Time           0.115 secs
-    Create Function                            0.243 secs
-    Data Reference                             0.226 secs
-    Decompiler Switch Analysis                 6.160 secs
-    Decompiler Switch Analysis - One Time      1.284 secs
-    Demangler GNU                              0.326 secs
-    Demangler Swift                           26.282 secs
-    Disassemble                                1.221 secs
-    Disassemble Entry Points                   1.608 secs
-    Disassemble Entry Points - One Time        0.379 secs
-    Embedded Media                             0.036 secs
+    ASCII Strings                              0.336 secs
+    Apply Data Archives                        0.587 secs
+    Basic Constant Reference Analyzer          3.631 secs
+    CFStrings                                  0.025 secs
+    Call Convention ID                         2.330 secs
+    Call-Fixup Installer                       0.020 secs
+    Create Address Tables                      0.083 secs
+    Create Address Tables - One Time           0.057 secs
+    Create Function                            0.147 secs
+    Data Reference                             0.236 secs
+    Decompiler Switch Analysis                 5.694 secs
+    Decompiler Switch Analysis - One Time      1.359 secs
+    Demangler GNU                              0.197 secs
+    Demangler Swift                           22.758 secs
+    Disassemble                                0.926 secs
+    Disassemble Entry Points                   1.388 secs
+    Disassemble Entry Points - One Time        0.466 secs
+    Embedded Media                             0.020 secs
     External Entry References                  0.000 secs
-    Function Start Search                      0.124 secs
-    Function Start Search After Code           0.071 secs
-    Function Start Search After Data           0.050 secs
-    Function Start Search delayed - One Time   0.086 secs
-    Mach-O Function Starts                     0.348 secs
-    Non-Returning Functions - Discovered       0.134 secs
-    Non-Returning Functions - Known            0.012 secs
-    Objective-C 2 Class                        0.320 secs
-    Objective-C 2 Decompiler Message           8.389 secs
-    Reference                                  0.143 secs
-    Shared Return Calls                        0.265 secs
-    Stack                                      4.164 secs
-    Subroutine References                      0.098 secs
-    Subroutine References - One Time           0.003 secs
-    Swift Type Metadata Analyzer               0.066 secs
+    Function Start Search                      0.079 secs
+    Function Start Search After Code           0.037 secs
+    Function Start Search After Data           0.090 secs
+    Function Start Search delayed - One Time   0.058 secs
+    Mach-O Function Starts                     0.285 secs
+    Non-Returning Functions - Discovered       0.122 secs
+    Non-Returning Functions - Known            0.010 secs
+    Objective-C 2 Class                        0.239 secs
+    Objective-C 2 Decompiler Message           6.530 secs
+    Reference                                  0.090 secs
+    Shared Return Calls                        0.162 secs
+    Stack                                      2.629 secs
+    Subroutine References                      0.079 secs
+    Subroutine References - One Time           0.004 secs
+    Swift Type Metadata Analyzer               0.058 secs
 -----------------------------------------------------
-     Total Time   60 secs
+     Total Time   50 secs
 -----------------------------------------------------
  (AutoAnalysisManager)  
 INFO  REPORT: Analysis succeeded for file: file:///home/runner/work/ipa-decompile/ipa-decompile/binaries/TrollInstallerX_original (HeadlessAnalyzer)  
-decompile_all.java:1: error: illegal character: '\ufeff'
-﻿// Ghidra headless script: decompile_all.java
-^
-decompile_all.java:6: error: class, interface, annotation type, enum, record, method or field expected
-import ghidra.app.decompiler.DecompInterface;
-       ^
-decompile_all.java:7: error: class, interface, annotation type, enum, record, method or field expected
-import ghidra.app.decompiler.DecompileResults;
-^
-decompile_all.java:8: error: class, interface, annotation type, enum, record, method or field expected
-import ghidra.app.script.GhidraScript;
-^
-decompile_all.java:9: error: class, interface, annotation type, enum, record, method or field expected
-import ghidra.program.model.listing.Function;
-^
-decompile_all.java:10: error: class, interface, annotation type, enum, record, method or field expected
-import ghidra.program.model.listing.FunctionIterator;
-^
-decompile_all.java:11: error: class, interface, annotation type, enum, record, method or field expected
-import java.io.File;
-^
-decompile_all.java:12: error: class, interface, annotation type, enum, record, method or field expected
-import java.io.FileWriter;
-^
-decompile_all.java:13: error: class, interface, annotation type, enum, record, method or field expected
-import java.io.PrintWriter;
-^
-skipping /home/runner/work/ipa-decompile/ipa-decompile/decompile_all.java
 MonitorModelEventsScript.java:20: warning: [removal] ghidra.dbg.target.TargetEventScope in ghidra.dbg.target has been deprecated and marked for removal
 import ghidra.dbg.target.TargetEventScope.TargetEventType;
                         ^
@@ -912,97 +893,97 @@ Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files additionally use or override a deprecated API that is marked for removal.
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBLaunchInfo.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBExecutionContext.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeMemberFunction.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBThread.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpointName.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBStream.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFrame.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeFormat.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBlock.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpoint.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBReproducer.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBValueList.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeEnumMember.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommandReturnObject.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBProcess.java
 skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBLanguageRuntime.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBThreadPlan.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/reader/DmgInputStream.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/server/DmgServer.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTraceCursor.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeSummaryOptions.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeSynthetic.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBModuleSpecList.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBModuleSpec.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBUnixSignals.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpointLocation.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBDeclaration.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommandInterpreter.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBExpressionOptions.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/hfsplus/AttributesFileParser.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBStructuredData.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/reader/DmgInfoGenerator.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBModule.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBAttachInfo.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTarget.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-agent-dbgmodel-traceloader/ghidra_scripts/BangAddressToMemory.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBMemoryRegionInfo.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBroadcaster.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTrace.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSection.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBPlatformConnectOptions.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFileSpecList.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBPlatform.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeCategory.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBVariablesOptions.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeSummary.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/reader/DmgFileReader.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBMemoryRegionInfoList.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommunication.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBDebugger.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBScriptObject.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBEvent.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeMember.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-agent-dbgmodel-traceloader/ghidra_scripts/PopulateTraceRemote.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSymbol.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeList.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/Base/ghidra_scripts/AutoRenameLabelsScript.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBPlatformShellCommand.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSymbolContext.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeNameSpecifier.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommandInterpreterRunOptions.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/docs/GhidraClass/Debugger/ghidra_scripts/ZeroTimerScript.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBThreadCollection.java
 skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFunction.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSourceManager.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBHostOS.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBQueueItem.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBValue.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBData.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBAddress.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBQueue.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts/RefreshRegistersScript.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBLineEntry.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBEnvironment.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBError.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpointList.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBStringList.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/ByteArray.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBWatchpoint.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeEnumMemberList.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBType.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFile.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBInstruction.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCompileUnit.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts/MonitorModelEventsScript.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBValueList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommandInterpreterRunOptions.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpoint.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeSummary.java
 skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBProcessInfo.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFileSpec.java
-skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeFilter.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBStringList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpointLocation.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/reader/DmgInputStream.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeList.java
 skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBListener.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-agent-dbgmodel-traceloader/ghidra_scripts/PopulateTraceRemote.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeSummaryOptions.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSymbol.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCompileUnit.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpointList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/hfsplus/AttributesFileParser.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBThread.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeMemberFunction.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBDeclaration.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFrame.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBUnixSignals.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBExpressionOptions.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommandReturnObject.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBEvent.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFile.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBPlatformConnectOptions.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts/MonitorModelEventsScript.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeEnumMemberList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBScriptObject.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBVariablesOptions.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBPlatformShellCommand.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBQueue.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBroadcaster.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/ByteArray.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-agent-dbgmodel-traceloader/ghidra_scripts/BangAddressToMemory.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBData.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeNameSpecifier.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/reader/DmgInfoGenerator.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBAddress.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeFormat.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFileSpecList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTarget.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBLineEntry.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTraceCursor.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts/RefreshRegistersScript.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/reader/DmgFileReader.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBMemoryRegionInfo.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBAttachInfo.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBStream.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBType.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBStructuredData.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBModule.java
 skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSymbolContextList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBDebugger.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBWatchpoint.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBThreadCollection.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBMemoryRegionInfoList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/docs/GhidraClass/Debugger/ghidra_scripts/ZeroTimerScript.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBHostOS.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommunication.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBQueueItem.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSection.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBEnvironment.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSymbolContext.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBProcess.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeFilter.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBModuleSpec.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommandInterpreter.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBPlatform.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBReproducer.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTrace.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeMember.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSourceManager.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBModuleSpecList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpointName.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBError.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeSynthetic.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeEnumMember.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBLaunchInfo.java
 skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBInstructionList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBThreadPlan.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/Base/ghidra_scripts/AutoRenameLabelsScript.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFileSpec.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBExecutionContext.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/server/DmgServer.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBInstruction.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeCategory.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBValue.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBlock.java
 ERROR REPORT SCRIPT ERROR: decompile_all.java : The class could not be found. It must be the public class of the .java file: decompile_all (HeadlessAnalyzer) ghidra.app.script.GhidraScriptLoadException: The class could not be found. It must be the public class of the .java file: decompile_all
 	at ghidra.app.script.JavaScriptProvider.getScriptInstance(JavaScriptProvider.java:110)
 	at ghidra.app.util.headless.HeadlessAnalyzer.runScriptsList(HeadlessAnalyzer.java:912)
@@ -1030,7 +1011,6 @@ INFO  ANALYZING changes made by post scripts: file:///home/runner/work/ipa-decom
 INFO  REPORT: Post-analysis succeeded for file: file:///home/runner/work/ipa-decompile/ipa-decompile/binaries/TrollInstallerX_original (HeadlessAnalyzer)  
 INFO  REPORT: Save succeeded for: /TrollInstallerX_original (original:/TrollInstallerX_original) (HeadlessAnalyzer)  
 INFO  REPORT: Import succeeded (HeadlessAnalyzer)  
-=== Output files: ===
 total 8
-drwxr-xr-x 2 runner runner 4096 May  2 06:29 .
-drwxr-xr-x 3 runner runner 4096 May  2 06:29 ..
+drwxr-xr-x 2 runner runner 4096 May  2 06:37 .
+drwxr-xr-x 3 runner runner 4096 May  2 06:37 ..

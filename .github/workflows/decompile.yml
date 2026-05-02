@@ -17,22 +17,28 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Ghidra + setup
+      - name: Install Ghidra
         run: |
-          echo "=== Setup ==="
           echo "JAVA_HOME=$JAVA_HOME"
           "$JAVA_HOME/bin/java" -version
-          echo "System java:"
-          /usr/bin/java -version 2>&1 || true
-          echo "Downloading Ghidra..."
+          echo "--- System java ---"
+          which java && java -version 2>&1 || true
           wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip
           unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
           echo "GHIDRA_HOME=$PWD/ghidra_11.2.1_PUBLIC" >> $GITHUB_ENV
-          # Fix BOM if present
+          # Fix BOM
           sed -i '1s/^\xEF\xBB\xBF//' decompile_all.java
-          # Patch analyzeHeadless to force Java 17
-          sed -i '2i export PATH="'"$JAVA_HOME"'/bin:$PATH"' ghidra_11.2.1_PUBLIC/support/analyzeHeadless
-          sed -i '2i export JAVA_HOME="'"$JAVA_HOME"'"' ghidra_11.2.1_PUBLIC/support/analyzeHeadless
+          # Replace analyzeHeadless with wrapper that forces Java 17
+          cp "$GHIDRA_HOME/support/analyzeHeadless" "$GHIDRA_HOME/support/analyzeHeadless.real"
+          cat > "$GHIDRA_HOME/support/analyzeHeadless" << 'WRAPPER'
+#!/bin/bash
+export JAVA_HOME_OVERRIDE="${JAVA_HOME}"
+export PATH="${JAVA_HOME}/bin:${PATH}"
+exec "$(dirname "$0")/analyzeHeadless.real" "$@"
+WRAPPER
+          chmod +x "$GHIDRA_HOME/support/analyzeHeadless"
+          echo "--- Verify wrapper ---"
+          head -5 "$GHIDRA_HOME/support/analyzeHeadless"
 
       - name: Prepare binaries
         run: |
