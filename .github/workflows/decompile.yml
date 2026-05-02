@@ -35,7 +35,7 @@ jobs:
 
       - name: Decompile Original Binary
         run: |
-          mkdir -p output/original
+          mkdir -p /tmp/ghidra_proj output/original
           echo "Starting original binary decompilation..."
           "$GHIDRA_HOME/support/analyzeHeadless" \
             /tmp/ghidra_proj original \
@@ -47,7 +47,7 @@ jobs:
 
       - name: Decompile Modified Binary
         run: |
-          mkdir -p output/modified
+          mkdir -p /tmp/ghidra_proj2 output/modified
           echo "Starting modified binary decompilation..."
           "$GHIDRA_HOME/support/analyzeHeadless" \
             /tmp/ghidra_proj2 modified \
