@@ -11,24 +11,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Install Ghidra
+      - name: Install tools
         run: |
-          echo "JAVA_HOME=$JAVA_HOME"
-          "$JAVA_HOME/bin/java" -version
-          wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip
-          unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
-          GHIDRA_HOME="$PWD/ghidra_11.2.1_PUBLIC"
-          echo "GHIDRA_HOME=$GHIDRA_HOME" >> $GITHUB_ENV
-          sed -i '1s/^\xEF\xBB\xBF//' decompile_all.java
-          cp "$GHIDRA_HOME/support/analyzeHeadless" "$GHIDRA_HOME/support/analyzeHeadless.real"
-          printf '#!/bin/bash\nexport JAVA_HOME_OVERRIDE="${JAVA_HOME}"\nexport PATH="${JAVA_HOME}/bin:${PATH}"\nexec "$(dirname "$0")/analyzeHeadless.real" "$@"\n' > "$GHIDRA_HOME/support/analyzeHeadless"
-          chmod +x "$GHIDRA_HOME/support/analyzeHeadless"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq retdec-decompiler 2>/dev/null || true
+          which retdec-decompiler && echo "retdec OK" || echo "retdec not available, will use objdump"
 
       - name: Prepare binaries
         run: |
@@ -37,6 +24,23 @@ jobs:
           cp "/tmp/orig/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_original"
           unzip -o "modified.ipa" -d /tmp/mod
           cp "/tmp/mod/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_modified"
+
+      - name: Setup Ghidra (latest)
+        run: |
+          sudo apt-get install -y -qq default-jdk
+          java -version 2>&1
+          wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.3.2_build/ghidra_11.3.2_PUBLIC_20250311.zip
+          unzip -q ghidra_11.3.2_PUBLIC_20250311.zip
+          echo "GHIDRA_HOME=$PWD/ghidra_11.3.2_PUBLIC" >> $GITHUB_ENV
+          GHIDRA_HOME="$PWD/ghidra_11.3.2_PUBLIC"
+          sed -i '1s/^\xEF\xBB\xBF//' decompile_all.java
+          cp "$GHIDRA_HOME/support/analyzeHeadless" "$GHIDRA_HOME/support/analyzeHeadless.real"
+          printf '#!/bin/bash\nexport JAVA_HOME_OVERRIDE="%s"\nexport PATH="%s/bin:$PATH"\nexec "$(dirname "$0")/analyzeHeadless.real" "$@"\n' "$JAVA_HOME" "$JAVA_HOME" > "$GHIDRA_HOME/support/analyzeHeadless"
+          chmod +x "$GHIDRA_HOME/support/analyzeHeadless"
+          echo "Wrapper contents:"
+          cat "$GHIDRA_HOME/support/analyzeHeadless"
+          echo "--- Java check ---"
+          "$GHIDRA_HOME/support/analyzeHeadless" --help 2>&1 | head -3
 
       - name: Decompile Original
         run: |
