@@ -20,7 +20,7 @@ jobs:
           echo "GHIDRA_HOME=$GHIDRA_HOME" >> $GITHUB_ENV
       - run: ls -la libxpf-original/
       - run: |
-          mkdir -p output
+          mkdir -p output /tmp/p3
           "$GHIDRA_HOME/support/analyzeHeadless" /tmp/p3 orig-lib -import "$PWD/libxpf-original/libxpf.dylib" -postScript decompile_all.java "$PWD/output" -scriptPath "$PWD" -processor "AARCH64:LE:64:v8A" -max-cpu 4
           cp output/libxpf.dylib_decompiled.c output/original_libxpf.c 2>/dev/null || cp output/libxpf_original_decompiled.c output/original_libxpf.c 2>/dev/null || ls output/
       - uses: actions/upload-artifact@v4
@@ -45,7 +45,7 @@ jobs:
           echo "GHIDRA_HOME=$GHIDRA_HOME" >> $GITHUB_ENV
       - run: ls -la libxpf-modified/
       - run: |
-          mkdir -p output
+          mkdir -p output /tmp/p4
           "$GHIDRA_HOME/support/analyzeHeadless" /tmp/p4 mod-lib -import "$PWD/libxpf-modified/libxpf.dylib" -postScript decompile_all.java "$PWD/output" -scriptPath "$PWD" -processor "AARCH64:LE:64:v8A" -max-cpu 4
           cp output/libxpf.dylib_decompiled.c output/modified_libxpf.c 2>/dev/null || cp output/libxpf_modified_decompiled.c output/modified_libxpf.c 2>/dev/null || ls output/
       - uses: actions/upload-artifact@v4
