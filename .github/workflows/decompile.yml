@@ -1,73 +1,142 @@
-name: Decompile TrollInstallerX (Full)
+name: Decompile TrollInstallerX + libxpf
 
 on:
   workflow_dispatch:
 
 jobs:
-  decompile:
+  setup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p binaries
+          # Extract from IPA
+          unzip -o "original.ipa" -d /tmp/orig
+          cp "/tmp/orig/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_original"
+          cp "/tmp/orig/Payload/TrollInstallerX.app/Frameworks/libxpf.dylib" "binaries/libxpf_original" || true
+          unzip -o "modified.ipa" -d /tmp/mod
+          cp "/tmp/mod/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_modified"
+          cp "/tmp/mod/Payload/TrollInstallerX.app/Frameworks/libxpf.dylib" "binaries/libxpf_modified" || true
+          ls -la binaries/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: binaries
+          path: binaries/
+          retention-days: 1
+
+  decompile-main-orig:
+    needs: setup
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install system Java + Ghidra
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq default-jdk
-          echo "=== System Java ==="
-          which java && java -version 2>&1
-          JAVA_SYS="$(dirname $(which java))"
-          echo "JAVA_SYS=$JAVA_SYS" >> $GITHUB_ENV
-          wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip
-          unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: binaries
+          path: binaries/
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq default-jdk
+      - run: wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip && unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
+      - run: |
           GHIDRA_HOME="$PWD/ghidra_11.2.1_PUBLIC"
-          echo "GHIDRA_HOME=$GHIDRA_HOME" >> $GITHUB_ENV
           sed -i '1s/^\xEF\xBB\xBF//' decompile_all.java
           cp "$GHIDRA_HOME/support/analyzeHeadless" "$GHIDRA_HOME/support/analyzeHeadless.real"
-          printf '#!/bin/bash\nexport JAVA_HOME="%s"\nexport PATH="%s:$PATH"\nunset JAVA_HOME_OVERRIDE\nexec "$(dirname "$0")/analyzeHeadless.real" "$@"\n' "/usr/lib/jvm/java-21-openjdk-amd64" "/usr/lib/jvm/java-21-openjdk-amd64/bin" > "$GHIDRA_HOME/support/analyzeHeadless"
+          printf '#!/bin/bash\nexport JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"\nexport PATH="/usr/lib/jvm/java-21-openjdk-amd64/bin:$PATH"\nunset JAVA_HOME_OVERRIDE\nexec "$(dirname "$0")/analyzeHeadless.real" "$@"\n' > "$GHIDRA_HOME/support/analyzeHeadless"
           chmod +x "$GHIDRA_HOME/support/analyzeHeadless"
-          echo "=== Wrapper ==="
-          cat "$GHIDRA_HOME/support/analyzeHeadless"
-          echo "=== Quick test ==="
-          "$GHIDRA_HOME/support/analyzeHeadless" --help 2>&1 | head -5
-
-      - name: Prepare binaries
-        run: |
-          mkdir -p binaries
-          unzip -o "original.ipa" -d /tmp/orig
-          cp "/tmp/orig/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_original"
-          unzip -o "modified.ipa" -d /tmp/mod
-          cp "/tmp/mod/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_modified"
-
-      - name: Decompile Original
-        run: |
-          mkdir -p /tmp/ghidra_proj output/original
-          "$GHIDRA_HOME/support/analyzeHeadless" \
-            /tmp/ghidra_proj original \
-            -import "$PWD/binaries/TrollInstallerX_original" \
-            -postScript decompile_all.java "$PWD/output/original" \
-            -scriptPath "$PWD" \
-            -processor "AARCH64:LE:64:v8A" \
-            -max-cpu 4
-          ls -la output/original/ || echo "EMPTY"
-
-      - name: Decompile Modified
-        run: |
-          mkdir -p /tmp/ghidra_proj2 output/modified
-          "$GHIDRA_HOME/support/analyzeHeadless" \
-            /tmp/ghidra_proj2 modified \
-            -import "$PWD/binaries/TrollInstallerX_modified" \
-            -postScript decompile_all.java "$PWD/output/modified" \
-            -scriptPath "$PWD" \
-            -processor "AARCH64:LE:64:v8A" \
-            -max-cpu 4
-          ls -la output/modified/ || echo "EMPTY"
-
-      - name: Upload results
-        uses: actions/upload-artifact@v4
+          echo "GHIDRA_HOME=$GHIDRA_HOME" >> $GITHUB_ENV
+      - run: |
+          mkdir -p output
+          "$GHIDRA_HOME/support/analyzeHeadless" /tmp/p1 orig-main -import "$PWD/binaries/TrollInstallerX_original" -postScript decompile_all.java "$PWD/output" -scriptPath "$PWD" -processor "AARCH64:LE:64:v8A" -max-cpu 4
+          cp output/TrollInstallerX_original_decompiled.c output/original_main.c
+      - uses: actions/upload-artifact@v4
         with:
-          name: trollinstallerx-full-decompile
-          path: output/
+          name: decompile-original-main
+          path: output/original_main.c
           retention-days: 7
-          if-no-files-found: error
+
+  decompile-main-mod:
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: binaries
+          path: binaries/
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq default-jdk
+      - run: wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip && unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
+      - run: |
+          GHIDRA_HOME="$PWD/ghidra_11.2.1_PUBLIC"
+          sed -i '1s/^\xEF\xBB\xBF//' decompile_all.java
+          cp "$GHIDRA_HOME/support/analyzeHeadless" "$GHIDRA_HOME/support/analyzeHeadless.real"
+          printf '#!/bin/bash\nexport JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"\nexport PATH="/usr/lib/jvm/java-21-openjdk-amd64/bin:$PATH"\nunset JAVA_HOME_OVERRIDE\nexec "$(dirname "$0")/analyzeHeadless.real" "$@"\n' > "$GHIDRA_HOME/support/analyzeHeadless"
+          chmod +x "$GHIDRA_HOME/support/analyzeHeadless"
+          echo "GHIDRA_HOME=$GHIDRA_HOME" >> $GITHUB_ENV
+      - run: |
+          mkdir -p output
+          "$GHIDRA_HOME/support/analyzeHeadless" /tmp/p2 mod-main -import "$PWD/binaries/TrollInstallerX_modified" -postScript decompile_all.java "$PWD/output" -scriptPath "$PWD" -processor "AARCH64:LE:64:v8A" -max-cpu 4
+          cp output/TrollInstallerX_modified_decompiled.c output/modified_main.c
+      - uses: actions/upload-artifact@v4
+        with:
+          name: decompile-modified-main
+          path: output/modified_main.c
+          retention-days: 7
+
+  decompile-libxpf-orig:
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: binaries
+          path: binaries/
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq default-jdk
+      - run: wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip && unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
+      - run: |
+          GHIDRA_HOME="$PWD/ghidra_11.2.1_PUBLIC"
+          sed -i '1s/^\xEF\xBB\xBF//' decompile_all.java
+          cp "$GHIDRA_HOME/support/analyzeHeadless" "$GHIDRA_HOME/support/analyzeHeadless.real"
+          printf '#!/bin/bash\nexport JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"\nexport PATH="/usr/lib/jvm/java-21-openjdk-amd64/bin:$PATH"\nunset JAVA_HOME_OVERRIDE\nexec "$(dirname "$0")/analyzeHeadless.real" "$@"\n' > "$GHIDRA_HOME/support/analyzeHeadless"
+          chmod +x "$GHIDRA_HOME/support/analyzeHeadless"
+          echo "GHIDRA_HOME=$GHIDRA_HOME" >> $GITHUB_ENV
+      - run: |
+          mkdir -p output
+          "$GHIDRA_HOME/support/analyzeHeadless" /tmp/p3 orig-lib -import "$PWD/binaries/libxpf_original" -postScript decompile_all.java "$PWD/output" -scriptPath "$PWD" -processor "AARCH64:LE:64:v8A" -max-cpu 4
+          cp output/libxpf_original_decompiled.c output/original_libxpf.c
+      - uses: actions/upload-artifact@v4
+        with:
+          name: decompile-original-libxpf
+          path: output/original_libxpf.c
+          retention-days: 7
+
+  decompile-libxpf-mod:
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: binaries
+          path: binaries/
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq default-jdk
+      - run: wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip && unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
+      - run: |
+          GHIDRA_HOME="$PWD/ghidra_11.2.1_PUBLIC"
+          sed -i '1s/^\xEF\xBB\xBF//' decompile_all.java
+          cp "$GHIDRA_HOME/support/analyzeHeadless" "$GHIDRA_HOME/support/analyzeHeadless.real"
+          printf '#!/bin/bash\nexport JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"\nexport PATH="/usr/lib/jvm/java-21-openjdk-amd64/bin:$PATH"\nunset JAVA_HOME_OVERRIDE\nexec "$(dirname "$0")/analyzeHeadless.real" "$@"\n' > "$GHIDRA_HOME/support/analyzeHeadless"
+          chmod +x "$GHIDRA_HOME/support/analyzeHeadless"
+          echo "GHIDRA_HOME=$GHIDRA_HOME" >> $GITHUB_ENV
+      - run: |
+          mkdir -p output
+          "$GHIDRA_HOME/support/analyzeHeadless" /tmp/p4 mod-lib -import "$PWD/binaries/libxpf_modified" -postScript decompile_all.java "$PWD/output" -scriptPath "$PWD" -processor "AARCH64:LE:64:v8A" -max-cpu 4
+          cp output/libxpf_modified_decompiled.c output/modified_libxpf.c
+      - uses: actions/upload-artifact@v4
+        with:
+          name: decompile-modified-libxpf
+          path: output/modified_libxpf.c
+          retention-days: 7
