@@ -1,4 +1,4 @@
-name: Decompile TrollInstallerX (Full)
+﻿name: Decompile TrollInstallerX (Full)
 
 on:
   workflow_dispatch:
@@ -27,9 +27,9 @@ jobs:
       - name: Prepare binaries
         run: |
           mkdir -p binaries
-          unzip -o "原版-TrollInstallerX.ipa" -d /tmp/orig
+          unzip -o "鍘熺増-TrollInstallerX.ipa" -d /tmp/orig
           cp "/tmp/orig/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_original"
-          unzip -o "修改版.ipa" -d /tmp/mod
+          unzip -o "淇敼鐗?ipa" -d /tmp/mod
           cp "/tmp/mod/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_modified"
           file binaries/*
 
@@ -40,7 +40,7 @@ jobs:
           "$GHIDRA_HOME/support/analyzeHeadless" \
             /tmp/ghidra_proj original \
             -import "binaries/TrollInstallerX_original" \
-            -postScript DecompileAllFunctions.java "output/original" \
+            -postScript decompile_all.java "output/original" \
             -scriptPath . \
             -processor "AARCH64:LE:64:v8A" \
             -max-cpu 4
@@ -52,7 +52,7 @@ jobs:
           "$GHIDRA_HOME/support/analyzeHeadless" \
             /tmp/ghidra_proj2 modified \
             -import "binaries/TrollInstallerX_modified" \
-            -postScript DecompileAllFunctions.java "output/modified" \
+            -postScript decompile_all.java "output/modified" \
             -scriptPath . \
             -processor "AARCH64:LE:64:v8A" \
             -max-cpu 4
@@ -63,3 +63,4 @@ jobs:
           name: trollinstallerx-full-decompile
           path: output/
           retention-days: 7
+
