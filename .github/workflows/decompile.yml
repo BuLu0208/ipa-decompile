@@ -35,6 +35,8 @@ jobs:
           file binaries/*
 
       - name: Decompile Original Binary
+        env:
+          GHIDRA_OPTS: "-Dorg.osgi.framework.system.capabilities=osgi.ee;osgi.ee=JavaSE/1.8,osgi.ee=JavaSE/17"
         run: |
           mkdir -p /tmp/ghidra_proj output/original
           echo "=== Java being used: ==="
@@ -52,6 +54,8 @@ jobs:
           ls -la output/original/ 2>&1 || echo "EMPTY"
 
       - name: Decompile Modified Binary
+        env:
+          GHIDRA_OPTS: "-Dorg.osgi.framework.system.capabilities=osgi.ee;osgi.ee=JavaSE/1.8,osgi.ee=JavaSE/17"
         run: |
           mkdir -p /tmp/ghidra_proj2 output/modified
           echo "=== Starting modified decompilation ==="
