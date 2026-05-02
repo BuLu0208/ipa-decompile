@@ -1,4 +1,4 @@
-﻿name: Decompile TrollInstallerX (Full)
+name: Decompile TrollInstallerX (Full)
 
 on:
   workflow_dispatch:
@@ -27,9 +27,9 @@ jobs:
       - name: Prepare binaries
         run: |
           mkdir -p binaries
-          unzip -o "鍘熺増-TrollInstallerX.ipa" -d /tmp/orig
+          unzip -o "original.ipa" -d /tmp/orig
           cp "/tmp/orig/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_original"
-          unzip -o "淇敼鐗?ipa" -d /tmp/mod
+          unzip -o "modified.ipa" -d /tmp/mod
           cp "/tmp/mod/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_modified"
           file binaries/*
 
@@ -63,5 +63,3 @@ jobs:
           name: trollinstallerx-full-decompile
           path: output/
           retention-days: 7
-
-
