@@ -7,8 +7,6 @@ jobs:
   decompile:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    env:
-      WORK: /home/runner/work/ipa-decompile/ipa-decompile
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,55 +17,59 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Download & Install Ghidra
+      - name: Verify Java version & Download Ghidra
         run: |
+          echo "JAVA_HOME=$JAVA_HOME"
+          java -version
           wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip
           unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
-          echo "GHIDRA_HOME=$WORK/ghidra_11.2.1_PUBLIC" >> $GITHUB_ENV
+          echo "GHIDRA_HOME=$PWD/ghidra_11.2.1_PUBLIC" >> $GITHUB_ENV
 
       - name: Prepare binaries
         run: |
-          mkdir -p "$WORK/binaries"
+          mkdir -p binaries
           unzip -o "original.ipa" -d /tmp/orig
-          cp "/tmp/orig/Payload/TrollInstallerX.app/TrollInstallerX" "$WORK/binaries/TrollInstallerX_original"
+          cp "/tmp/orig/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_original"
           unzip -o "modified.ipa" -d /tmp/mod
-          cp "/tmp/mod/Payload/TrollInstallerX.app/TrollInstallerX" "$WORK/binaries/TrollInstallerX_modified"
-          file "$WORK/binaries"/*
+          cp "/tmp/mod/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_modified"
+          file binaries/*
 
       - name: Decompile Original Binary
         run: |
-          mkdir -p /tmp/ghidra_proj "$WORK/output/original"
-          echo "=== Starting original binary decompilation ==="
-          cd "$WORK"
+          mkdir -p /tmp/ghidra_proj output/original
+          echo "=== Java being used: ==="
+          "$JAVA_HOME/bin/java" -version
+          echo "=== Starting original decompilation ==="
+          export JAVA_HOME_OVERRIDE="$JAVA_HOME"
           "$GHIDRA_HOME/support/analyzeHeadless" \
             /tmp/ghidra_proj original \
-            -import "$WORK/binaries/TrollInstallerX_original" \
-            -postScript decompile_all.java "$WORK/output/original" \
-            -scriptPath "$WORK" \
+            -import "$PWD/binaries/TrollInstallerX_original" \
+            -postScript decompile_all.java "$PWD/output/original" \
+            -scriptPath "$PWD" \
             -processor "AARCH64:LE:64:v8A" \
             -max-cpu 4
-          echo "=== Listing output ==="
-          ls -la "$WORK/output/original/" || echo "NO FILES"
+          echo "=== Output files: ==="
+          ls -la output/original/ 2>&1 || echo "EMPTY"
 
       - name: Decompile Modified Binary
         run: |
-          mkdir -p /tmp/ghidra_proj2 "$WORK/output/modified"
-          echo "=== Starting modified binary decompilation ==="
-          cd "$WORK"
+          mkdir -p /tmp/ghidra_proj2 output/modified
+          echo "=== Starting modified decompilation ==="
+          export JAVA_HOME_OVERRIDE="$JAVA_HOME"
           "$GHIDRA_HOME/support/analyzeHeadless" \
             /tmp/ghidra_proj2 modified \
-            -import "$WORK/binaries/TrollInstallerX_modified" \
-            -postScript decompile_all.java "$WORK/output/modified" \
-            -scriptPath "$WORK" \
+            -import "$PWD/binaries/TrollInstallerX_modified" \
+            -postScript decompile_all.java "$PWD/output/modified" \
+            -scriptPath "$PWD" \
             -processor "AARCH64:LE:64:v8A" \
             -max-cpu 4
-          echo "=== Listing output ==="
-          ls -la "$WORK/output/modified/" || echo "NO FILES"
+          echo "=== Output files: ==="
+          ls -la output/modified/ 2>&1 || echo "EMPTY"
 
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
           name: trollinstallerx-full-decompile
-          path: ${{ env.WORK }}/output/
+          path: output/
           retention-days: 7
           if-no-files-found: error
