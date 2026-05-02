@@ -21,24 +21,13 @@ jobs:
         run: |
           echo "JAVA_HOME=$JAVA_HOME"
           "$JAVA_HOME/bin/java" -version
-          echo "--- System java ---"
-          which java && java -version 2>&1 || true
           wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip
           unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
           echo "GHIDRA_HOME=$PWD/ghidra_11.2.1_PUBLIC" >> $GITHUB_ENV
-          # Fix BOM
           sed -i '1s/^\xEF\xBB\xBF//' decompile_all.java
-          # Replace analyzeHeadless with wrapper that forces Java 17
           cp "$GHIDRA_HOME/support/analyzeHeadless" "$GHIDRA_HOME/support/analyzeHeadless.real"
-          cat > "$GHIDRA_HOME/support/analyzeHeadless" << 'WRAPPER'
-#!/bin/bash
-export JAVA_HOME_OVERRIDE="${JAVA_HOME}"
-export PATH="${JAVA_HOME}/bin:${PATH}"
-exec "$(dirname "$0")/analyzeHeadless.real" "$@"
-WRAPPER
+          printf '#!/bin/bash\nexport JAVA_HOME_OVERRIDE="${JAVA_HOME}"\nexport PATH="${JAVA_HOME}/bin:${PATH}"\nexec "$(dirname "$0")/analyzeHeadless.real" "$@"\n' > "$GHIDRA_HOME/support/analyzeHeadless"
           chmod +x "$GHIDRA_HOME/support/analyzeHeadless"
-          echo "--- Verify wrapper ---"
-          head -5 "$GHIDRA_HOME/support/analyzeHeadless"
 
       - name: Prepare binaries
         run: |
