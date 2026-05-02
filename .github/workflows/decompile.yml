@@ -23,7 +23,8 @@ jobs:
           "$JAVA_HOME/bin/java" -version
           wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip
           unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
-          echo "GHIDRA_HOME=$PWD/ghidra_11.2.1_PUBLIC" >> $GITHUB_ENV
+          GHIDRA_HOME="$PWD/ghidra_11.2.1_PUBLIC"
+          echo "GHIDRA_HOME=$GHIDRA_HOME" >> $GITHUB_ENV
           sed -i '1s/^\xEF\xBB\xBF//' decompile_all.java
           cp "$GHIDRA_HOME/support/analyzeHeadless" "$GHIDRA_HOME/support/analyzeHeadless.real"
           printf '#!/bin/bash\nexport JAVA_HOME_OVERRIDE="${JAVA_HOME}"\nexport PATH="${JAVA_HOME}/bin:${PATH}"\nexec "$(dirname "$0")/analyzeHeadless.real" "$@"\n' > "$GHIDRA_HOME/support/analyzeHeadless"
