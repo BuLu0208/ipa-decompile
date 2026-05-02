@@ -1,0 +1,65 @@
+name: Decompile TrollInstallerX (Full)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  decompile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Download & Install Ghidra
+        run: |
+          echo "Downloading Ghidra..."
+          wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip
+          unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
+          echo "GHIDRA_HOME=$PWD/ghidra_11.2.1_PUBLIC" >> $GITHUB_ENV
+
+      - name: Prepare binaries
+        run: |
+          mkdir -p binaries
+          unzip -o "原版-TrollInstallerX.ipa" -d /tmp/orig
+          cp "/tmp/orig/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_original"
+          unzip -o "修改版.ipa" -d /tmp/mod
+          cp "/tmp/mod/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_modified"
+          file binaries/*
+
+      - name: Decompile Original Binary
+        run: |
+          mkdir -p output/original
+          echo "Starting original binary decompilation..."
+          "$GHIDRA_HOME/support/analyzeHeadless" \
+            /tmp/ghidra_proj original \
+            -import "binaries/TrollInstallerX_original" \
+            -postScript DecompileAllFunctions.java "output/original" \
+            -scriptPath . \
+            -processor "AARCH64:LE:64:v8A" \
+            -max-cpu 4
+
+      - name: Decompile Modified Binary
+        run: |
+          mkdir -p output/modified
+          echo "Starting modified binary decompilation..."
+          "$GHIDRA_HOME/support/analyzeHeadless" \
+            /tmp/ghidra_proj2 modified \
+            -import "binaries/TrollInstallerX_modified" \
+            -postScript DecompileAllFunctions.java "output/modified" \
+            -scriptPath . \
+            -processor "AARCH64:LE:64:v8A" \
+            -max-cpu 4
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: trollinstallerx-full-decompile
+          path: output/
+          retention-days: 7
