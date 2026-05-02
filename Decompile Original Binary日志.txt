@@ -1,0 +1,1036 @@
+Run mkdir -p /tmp/ghidra_proj output/original
+=== Java being used: ===
+openjdk version "17.0.18" 2026-01-20
+OpenJDK Runtime Environment Temurin-17.0.18+8 (build 17.0.18+8)
+OpenJDK 64-Bit Server VM Temurin-17.0.18+8 (build 17.0.18+8, mixed mode, sharing)
+=== Starting original decompilation ===
+openjdk version "25.0.2" 2026-01-20 LTS
+OpenJDK Runtime Environment Temurin-25.0.2+10 (build 25.0.2+10-LTS)
+OpenJDK 64-Bit Server VM Temurin-25.0.2+10 (build 25.0.2+10-LTS, mixed mode)
+INFO  Using log config file: jar:file:/home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /home/runner/.config/ghidra/ghidra_11.2.1_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /home/runner/.config/ghidra/ghidra_11.2.1_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (1378 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (SSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (ApplicationTrustManagerFactory)  
+INFO  Starting cache cleanup: /var/tmp/runner-ghidra/fscache2 (FileCacheMaintenanceDaemon)  
+INFO  Finished cache cleanup, estimated storage used: 0 (FileCacheMaintenanceDaemon)  
+INFO  Headless startup complete (5790 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 57 extension points (18 false positives) (ClassSearcher)  
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldOffset has been called by org.apache.felix.framework.util.SecureAction (file:/home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/Base/lib/org.apache.felix.framework-7.0.5.jar)
+WARNING: Please consider reporting this to the maintainers of class org.apache.felix.framework.util.SecureAction
+WARNING: sun.misc.Unsafe::staticFieldOffset will be removed in a future release
+INFO  HEADLESS Script Paths:
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/Base/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/BSim/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/Decompiler/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/FileFormats/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/VersionTracking/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Processors/PIC/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-agent-frida/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-agent-dbgmodel-traceloader/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/PDB/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Processors/DATA/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/FunctionID/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Processors/8051/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/BytePatterns/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Processors/Atmel/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Processors/JVM/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/Jython/ghidra_scripts
+    /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/GnuDemangler/ghidra_scripts (HeadlessAnalyzer)  
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Framework-Debugging/lib/jna-5.14.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Creating project: /tmp/ghidra_proj/original (HeadlessAnalyzer)  
+INFO  Creating project: /tmp/ghidra_proj/original (DefaultProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /tmp/ghidra_proj/original (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///home/runner/work/ipa-decompile/ipa-decompile/binaries/TrollInstallerX_original (HeadlessAnalyzer)  
+WARN  Using unknown opinion: Mac OS X Mach-O, AARCH64:LE:64:v8A:default (LcsHintLoadSpecChooser)  
+INFO  Using Loader: Mac OS X Mach-O (AutoImporter)  
+INFO  Using Language/Compiler: AARCH64:LE:64:v8A:default (AutoImporter)  
+INFO  Using Library Search Path: [., /bin, /lib, /lib64, /lib/x86_64-linux-gnu, /lib/aarch64-linux-gnu, /usr/bin, /usr/lib, /usr/X11R6/bin, /usr/X11R6/lib, /usr/java/packages/lib, /usr/lib64] (AutoImporter)  
+INFO  Additional info:
+Loading file:///home/runner/work/ipa-decompile/ipa-decompile/binaries/TrollInstallerX_original?MD5=6f61439e7b1c54868efe9e3fcae270e8...
+Discovered 1803 DYLD_CHAINED_PTR_64 chained pointers.
+WARNING: Problem fixing up symbol '__ZdlPv' - Library ordinal '253' outside of expected range
+WARNING: Problem fixing up symbol '__Znwm' - Library ordinal '253' outside of expected range
+Fixed up 1803 chained pointers.
+------------------------------------------------
+
+Linking the External Programs of 'TrollInstallerX_original' to imported libraries...
+  [@loader_path/libxpf.dylib] -> not found in project
+  [/usr/lib/libz.1.dylib] -> not found in project
+  [/usr/lib/libarchive.2.dylib] -> not found in project
+  [/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit] -> not found in project
+  [/System/Library/Frameworks/Foundation.framework/Foundation] -> not found in project
+  [/usr/lib/libobjc.A.dylib] -> not found in project
+  [/usr/lib/libSystem.B.dylib] -> not found in project
+  [/System/Library/Frameworks/Combine.framework/Combine] -> not found in project
+  [/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation] -> not found in project
+  [/System/Library/Frameworks/IOSurface.framework/IOSurface] -> not found in project
+  [/System/Library/Frameworks/SwiftUI.framework/SwiftUI] -> not found in project
+  [/System/Library/Frameworks/UIKit.framework/UIKit] -> not found in project
+  [/usr/lib/libc++.1.dylib] -> not found in project
+  [/usr/lib/swift/libswiftCore.dylib] -> not found in project
+  [/usr/lib/swift/libswiftCoreFoundation.dylib] -> not found in project
+  [/usr/lib/swift/libswiftCoreImage.dylib] -> not found in project
+  [/usr/lib/swift/libswiftDarwin.dylib] -> not found in project
+  [/usr/lib/swift/libswiftDataDetection.dylib] -> not found in project
+  [/usr/lib/swift/libswiftDispatch.dylib] -> not found in project
+  [/usr/lib/swift/libswiftFileProvider.dylib] -> not found in project
+  [/usr/lib/swift/libswiftMetal.dylib] -> not found in project
+  [/usr/lib/swift/libswiftOSLog.dylib] -> not found in project
+  [/usr/lib/swift/libswiftObjectiveC.dylib] -> not found in project
+  [/usr/lib/swift/libswiftQuartzCore.dylib] -> not found in project
+  [/usr/lib/swift/libswiftUniformTypeIdentifiers.dylib] -> not found in project
+  [/usr/lib/swift/libswiftXPC.dylib] -> not found in project
+  [/usr/lib/swift/libswiftos.dylib] -> not found in project
+  [@rpath/libswift_Concurrency.dylib] -> not found in project
+  [/usr/lib/swift/libswiftFoundation.dylib] -> not found in project
+  [/usr/lib/swift/libswiftUIKit.dylib] -> not found in project
+  [/usr/lib/swift/libswiftCoreGraphics.dylib] -> not found in project
+------------------------------------------------
+
+ (AutoImporter)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: file:///home/runner/work/ipa-decompile/ipa-decompile/binaries/TrollInstallerX_original (HeadlessAnalyzer)  
+INFO  hit non-returning function, restarting decompiler switch analyzer later (DecompilerSwitchAnalyzer)  
+INFO  Packed database cache: /var/tmp/runner-ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: mac_osx (ApplyDataArchiveAnalyzer)  
+ERROR Failed to create namespace: Symbol name contains invalid characters: _merge(struct Swift::UnsafeMutablePointer<undefined>,struct Swift::UnsafeMutablePointer<undefined>,struct Swift::UnsafeMutablePointer<undefined>,struct Swift::UnsafeMutablePointer<undefined>) (DemangledObject)  
+ERROR Failed to create namespace: Symbol name contains invalid characters: doIndirectInstall(struct TrollInstallerX::Device) (DemangledObject)  
+INFO  -----------------------------------------------------
+    AARCH64 ELF PLT Thunks                     0.000 secs
+    ASCII Strings                              0.480 secs
+    Apply Data Archives                        0.420 secs
+    Basic Constant Reference Analyzer          5.147 secs
+    CFStrings                                  0.033 secs
+    Call Convention ID                         2.480 secs
+    Call-Fixup Installer                       0.026 secs
+    Create Address Tables                      0.111 secs
+    Create Address Tables - One Time           0.115 secs
+    Create Function                            0.243 secs
+    Data Reference                             0.226 secs
+    Decompiler Switch Analysis                 6.160 secs
+    Decompiler Switch Analysis - One Time      1.284 secs
+    Demangler GNU                              0.326 secs
+    Demangler Swift                           26.282 secs
+    Disassemble                                1.221 secs
+    Disassemble Entry Points                   1.608 secs
+    Disassemble Entry Points - One Time        0.379 secs
+    Embedded Media                             0.036 secs
+    External Entry References                  0.000 secs
+    Function Start Search                      0.124 secs
+    Function Start Search After Code           0.071 secs
+    Function Start Search After Data           0.050 secs
+    Function Start Search delayed - One Time   0.086 secs
+    Mach-O Function Starts                     0.348 secs
+    Non-Returning Functions - Discovered       0.134 secs
+    Non-Returning Functions - Known            0.012 secs
+    Objective-C 2 Class                        0.320 secs
+    Objective-C 2 Decompiler Message           8.389 secs
+    Reference                                  0.143 secs
+    Shared Return Calls                        0.265 secs
+    Stack                                      4.164 secs
+    Subroutine References                      0.098 secs
+    Subroutine References - One Time           0.003 secs
+    Swift Type Metadata Analyzer               0.066 secs
+-----------------------------------------------------
+     Total Time   60 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///home/runner/work/ipa-decompile/ipa-decompile/binaries/TrollInstallerX_original (HeadlessAnalyzer)  
+decompile_all.java:1: error: illegal character: '\ufeff'
+﻿// Ghidra headless script: decompile_all.java
+^
+decompile_all.java:6: error: class, interface, annotation type, enum, record, method or field expected
+import ghidra.app.decompiler.DecompInterface;
+       ^
+decompile_all.java:7: error: class, interface, annotation type, enum, record, method or field expected
+import ghidra.app.decompiler.DecompileResults;
+^
+decompile_all.java:8: error: class, interface, annotation type, enum, record, method or field expected
+import ghidra.app.script.GhidraScript;
+^
+decompile_all.java:9: error: class, interface, annotation type, enum, record, method or field expected
+import ghidra.program.model.listing.Function;
+^
+decompile_all.java:10: error: class, interface, annotation type, enum, record, method or field expected
+import ghidra.program.model.listing.FunctionIterator;
+^
+decompile_all.java:11: error: class, interface, annotation type, enum, record, method or field expected
+import java.io.File;
+^
+decompile_all.java:12: error: class, interface, annotation type, enum, record, method or field expected
+import java.io.FileWriter;
+^
+decompile_all.java:13: error: class, interface, annotation type, enum, record, method or field expected
+import java.io.PrintWriter;
+^
+skipping /home/runner/work/ipa-decompile/ipa-decompile/decompile_all.java
+MonitorModelEventsScript.java:20: warning: [removal] ghidra.dbg.target.TargetEventScope in ghidra.dbg.target has been deprecated and marked for removal
+import ghidra.dbg.target.TargetEventScope.TargetEventType;
+                        ^
+RefreshRegistersScript.java:21: warning: [removal] ghidra.dbg.DebuggerObjectModel in ghidra.dbg has been deprecated and marked for removal
+import ghidra.dbg.DebuggerObjectModel.RefreshBehavior;
+                 ^
+ZeroTimerScript.java:24: warning: [removal] ghidra.dbg.target.TargetExecutionStateful in ghidra.dbg.target has been deprecated and marked for removal
+import ghidra.dbg.target.TargetExecutionStateful.TargetExecutionState;
+                        ^
+AttributesFileParser.java:10: error: package org.catacombae.hfsexplorer.fs does not exist
+import org.catacombae.hfsexplorer.fs.ImplHFSXFileSystemView;
+                                    ^
+AttributesFileParser.java:11: error: package org.catacombae.hfsexplorer.fs does not exist
+import org.catacombae.hfsexplorer.fs.NullProgressMonitor;
+                                    ^
+AttributesFileParser.java:12: error: package org.catacombae.hfsexplorer.types.hfscommon does not exist
+import org.catacombae.hfsexplorer.types.hfscommon.CommonHFSCatalogFile;
+                                                 ^
+AttributesFileParser.java:13: error: package org.catacombae.hfsexplorer.types.hfscommon does not exist
+import org.catacombae.hfsexplorer.types.hfscommon.CommonHFSForkData;
+                                                 ^
+AttributesFileParser.java:15: error: package org.catacombae.jparted.lib.fs does not exist
+import org.catacombae.jparted.lib.fs.FSFile;
+                                    ^
+AttributesFileParser.java:16: error: package org.catacombae.jparted.lib.fs.hfscommon does not exist
+import org.catacombae.jparted.lib.fs.hfscommon.HFSCommonFSFile;
+                                              ^
+AttributesFileParser.java:17: error: package org.catacombae.jparted.lib.fs.hfsx does not exist
+import org.catacombae.jparted.lib.fs.hfsx.HFSXFileSystemHandler;
+                                         ^
+AttributesFileParser.java:30: error: cannot find symbol
+	private Map<FSFile, DecmpfsHeader> map = new HashMap<FSFile, DecmpfsHeader>();
+	            ^
+  symbol:   class FSFile
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:34: error: cannot find symbol
+	public AttributesFileParser( HFSXFileSystemHandler handler, String prefix ) throws IOException {
+	                             ^
+  symbol:   class HFSXFileSystemHandler
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:59: error: cannot find symbol
+	private int getFileID(FSFile file) {
+	                      ^
+  symbol:   class FSFile
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:73: error: cannot find symbol
+	private File writeVolumeHeaderFile( ImplHFSXFileSystemView hfsxFileSystemView, 
+	                                    ^
+  symbol:   class ImplHFSXFileSystemView
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:74: error: cannot find symbol
+										HFSPlusForkData volumeHeaderFile, 
+										^
+  symbol:   class HFSPlusForkData
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:94: error: cannot find symbol
+	public DecmpfsHeader getDecmpfsHeader(FSFile file) throws IOException {
+	                                      ^
+  symbol:   class FSFile
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:14: error: package org.catacombae.hfsexplorer.types.hfsplus does not exist
+import org.catacombae.hfsexplorer.types.hfsplus.*;
+                                       ^
+DmgFileReader.java:10: error: package org.catacombae.dmgextractor.encodings.encrypted does not exist
+import org.catacombae.dmgextractor.encodings.encrypted.ReadableCEncryptedEncodingStream;
+                                                      ^
+DmgFileReader.java:11: error: package org.catacombae.hfsexplorer does not exist
+import org.catacombae.hfsexplorer.FileSystemRecognizer;
+                                 ^
+DmgFileReader.java:12: error: package org.catacombae.hfsexplorer does not exist
+import org.catacombae.hfsexplorer.PartitionSystemRecognizer;
+                                 ^
+DmgFileReader.java:13: error: package org.catacombae.hfsexplorer does not exist
+import org.catacombae.hfsexplorer.UDIFRecognizer;
+                                 ^
+DmgFileReader.java:14: error: package org.catacombae.hfsexplorer.partitioning does not exist
+import org.catacombae.hfsexplorer.partitioning.Partition;
+                                              ^
+DmgFileReader.java:15: error: package org.catacombae.hfsexplorer.partitioning does not exist
+import org.catacombae.hfsexplorer.partitioning.PartitionSystem;
+                                              ^
+DmgFileReader.java:16: error: package org.catacombae.hfsexplorer.win32 does not exist
+import org.catacombae.hfsexplorer.win32.WindowsLowLevelIO;
+                                       ^
+DmgFileReader.java:18: error: package org.catacombae.jparted.lib does not exist
+import org.catacombae.jparted.lib.DataLocator;
+                                 ^
+DmgFileReader.java:19: error: package org.catacombae.jparted.lib does not exist
+import org.catacombae.jparted.lib.ReadableStreamDataLocator;
+                                 ^
+DmgFileReader.java:21: error: package org.catacombae.jparted.lib.fs.FileSystemHandlerFactory does not exist
+import org.catacombae.jparted.lib.fs.FileSystemHandlerFactory.StandardAttribute;
+                                                             ^
+DmgFileReader.java:22: error: package org.catacombae.jparted.lib.fs.hfsx does not exist
+import org.catacombae.jparted.lib.fs.hfsx.HFSXFileSystemHandler;
+                                         ^
+DmgFileReader.java:23: error: package org.catacombae.udif does not exist
+import org.catacombae.udif.UDIFFile;
+                          ^
+DmgFileReader.java:24: error: package org.catacombae.udif does not exist
+import org.catacombae.udif.UDIFRandomAccessStream;
+                          ^
+DmgFileReader.java:38: error: cannot find symbol
+	private ReadableRandomAccessStream rras;
+	        ^
+  symbol:   class ReadableRandomAccessStream
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:39: error: cannot find symbol
+	private List<FSFolder> rootFolders = new ArrayList<FSFolder>();
+	             ^
+  symbol:   class FSFolder
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:40: error: cannot find symbol
+	private List<FileSystemHandler> fileSystemHandlers = new ArrayList<FileSystemHandler>();
+	             ^
+  symbol:   class FileSystemHandler
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:92: error: cannot find symbol
+	private void openPartition( Partition selectedPartition ) throws IOException {
+	                            ^
+  symbol:   class Partition
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:166: error: cannot find symbol
+	public InputStream getData( FSEntry entry ) throws IOException {
+	                            ^
+  symbol:   class FSEntry
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:218: error: cannot find symbol
+	private InputStream decompressResourceFork( FSEntry entry, 
+	                                            ^
+  symbol:   class FSEntry
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:219: error: cannot find symbol
+												ReadableRandomAccessStream resourceForkStream,
+												^
+  symbol:   class ReadableRandomAccessStream
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:264: error: cannot find symbol
+	public List<FSEntry> getListing( String path ) {
+	            ^
+  symbol:   class FSEntry
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:289: error: cannot find symbol
+	public long getLength( FSEntry entry ) {
+	                       ^
+  symbol:   class FSEntry
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:331: error: cannot find symbol
+	public FSEntry getFileByPath( String path ) {
+	       ^
+  symbol:   class FSEntry
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:17: error: package org.catacombae.io does not exist
+import org.catacombae.io.*;
+                     ^
+DmgFileReader.java:20: error: package org.catacombae.jparted.lib.fs does not exist
+import org.catacombae.jparted.lib.fs.*;
+                                 ^
+DmgInfoGenerator.java:11: error: package org.catacombae.hfsexplorer does not exist
+import org.catacombae.hfsexplorer.ObjectContainer;
+                                 ^
+DmgInfoGenerator.java:12: error: package org.catacombae.hfsexplorer.types.hfscommon does not exist
+import org.catacombae.hfsexplorer.types.hfscommon.CommonHFSCatalogFile;
+                                                 ^
+DmgInfoGenerator.java:13: error: package org.catacombae.hfsexplorer.types.hfsplus does not exist
+import org.catacombae.hfsexplorer.types.hfsplus.HFSCatalogNodeID;
+                                               ^
+DmgInfoGenerator.java:14: error: package org.catacombae.hfsexplorer.types.hfsplus does not exist
+import org.catacombae.hfsexplorer.types.hfsplus.HFSPlusCatalogFile;
+                                               ^
+DmgInfoGenerator.java:16: error: package org.catacombae.jparted.lib.fs.FSAttributes does not exist
+import org.catacombae.jparted.lib.fs.FSAttributes.POSIXFileAttributes;
+                                                 ^
+DmgInfoGenerator.java:17: error: package org.catacombae.jparted.lib.fs.hfscommon does not exist
+import org.catacombae.jparted.lib.fs.hfscommon.HFSCommonFSFile;
+                                              ^
+DmgInfoGenerator.java:31: error: cannot find symbol
+	private FSEntry entry;
+	        ^
+  symbol:   class FSEntry
+  location: class mobiledevices.dmg.reader.DmgInfoGenerator
+DmgInfoGenerator.java:123: error: cannot find symbol
+	private void appendFileID(List<String> infoList, FSFile file) {
+	                                                 ^
+  symbol:   class FSFile
+  location: class mobiledevices.dmg.reader.DmgInfoGenerator
+DmgInfoGenerator.java:138: error: cannot find symbol
+	private void appendPosixInformation(FSAttributes attrs, List<String> infoList) {
+	                                    ^
+  symbol:   class FSAttributes
+  location: class mobiledevices.dmg.reader.DmgInfoGenerator
+DmgInfoGenerator.java:147: error: cannot find symbol
+	private void appendWindowsInformation(FSAttributes attrs, List<String> infoList) {
+	                                      ^
+  symbol:   class FSAttributes
+  location: class mobiledevices.dmg.reader.DmgInfoGenerator
+DmgInfoGenerator.java:166: error: cannot find symbol
+	private void appendDateInformation(FSAttributes attributes, List<String> infoList) {
+	                                   ^
+  symbol:   class FSAttributes
+  location: class mobiledevices.dmg.reader.DmgInfoGenerator
+DmgInfoGenerator.java:189: error: cannot find symbol
+	private String startFolderSizeCalculation(FSFolder folder) {
+	                                          ^
+  symbol:   class FSFolder
+  location: class mobiledevices.dmg.reader.DmgInfoGenerator
+DmgInfoGenerator.java:203: error: cannot find symbol
+	private void calculateFolderSize(FSFolder folder, ObjectContainer<Long> result) {
+	                                 ^
+  symbol:   class FSFolder
+  location: class mobiledevices.dmg.reader.DmgInfoGenerator
+DmgInfoGenerator.java:203: error: cannot find symbol
+	private void calculateFolderSize(FSFolder folder, ObjectContainer<Long> result) {
+	                                                  ^
+  symbol:   class ObjectContainer
+  location: class mobiledevices.dmg.reader.DmgInfoGenerator
+DmgInfoGenerator.java:15: error: package org.catacombae.jparted.lib.fs does not exist
+import org.catacombae.jparted.lib.fs.*;
+                                 ^
+DmgInputStream.java:9: error: package org.catacombae.io does not exist
+import org.catacombae.io.ReadableRandomAccessStream;
+                        ^
+DmgInputStream.java:17: error: cannot find symbol
+	private ReadableRandomAccessStream stream;
+	        ^
+  symbol:   class ReadableRandomAccessStream
+  location: class mobiledevices.dmg.reader.DmgInputStream
+DmgInputStream.java:19: error: cannot find symbol
+	DmgInputStream(ReadableRandomAccessStream stream) {
+	               ^
+  symbol:   class ReadableRandomAccessStream
+  location: class mobiledevices.dmg.reader.DmgInputStream
+DmgServer.java:156: error: cannot find symbol
+	private static FSFile toFile(DmgFileReader dmgFileReader, String path) {
+	               ^
+  symbol:   class FSFile
+  location: class mobiledevices.dmg.server.DmgServer
+DmgServer.java:9: error: package org.catacombae.jparted.lib.fs does not exist
+import org.catacombae.jparted.lib.fs.*;
+                                 ^
+SBModule.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBModuleSpec.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBProcess.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBFileSpec.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBSection.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBAddress.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBSymbolContext.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBStream.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBCompileUnit.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBSymbolContextList.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBSymbol.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTarget.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBValueList.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBValue.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBType.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeList.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeMember.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeEnumMemberList.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeMemberFunction.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeEnumMember.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBError.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeSummaryOptions.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeFormat.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeSummary.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeFilter.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeSynthetic.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBExpressionOptions.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBData.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBDeclaration.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBThread.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBFrame.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBWatchpoint.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBEvent.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBBroadcaster.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBListener.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBDebugger.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBStructuredData.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBFile.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBCommandInterpreter.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBPlatform.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBSourceManager.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBStringList.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeCategory.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTypeNameSpecifier.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBCommandInterpreterRunOptions.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTrace.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBTraceCursor.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBPlatformConnectOptions.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBPlatformShellCommand.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBLaunchInfo.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBUnixSignals.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBEnvironment.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBCommandReturnObject.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBExecutionContext.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBScriptObject.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBFunction.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBBlock.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBLineEntry.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBVariablesOptions.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBInstructionList.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBInstruction.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBQueue.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBThreadCollection.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBQueueItem.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBAttachInfo.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBBreakpoint.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBFileSpecList.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBBreakpointList.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBBreakpointLocation.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBMemoryRegionInfo.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBMemoryRegionInfoList.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBProcessInfo.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBReproducer.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+ByteArray.java:24: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBBreakpointName.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBCommunication.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBModuleSpecList.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBThreadPlan.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBHostOS.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+SBLanguageRuntime.java:40: warning: [removal] finalize() in java.lang.Object has been deprecated and marked for removal
+  protected void finalize() {
+                 ^
+MonitorModelEventsScript.java:26: warning: [removal] ghidra.dbg.DebuggerModelListener in ghidra.dbg has been deprecated and marked for removal
+	static DebuggerModelListener listener = new DebuggerModelListener() {
+	       ^
+MonitorModelEventsScript.java:26: warning: [removal] ghidra.dbg.DebuggerModelListener in ghidra.dbg has been deprecated and marked for removal
+	static DebuggerModelListener listener = new DebuggerModelListener() {
+	                                            ^
+MonitorModelEventsScript.java:28: warning: [removal] ghidra.dbg.target.TargetObject in ghidra.dbg.target has been deprecated and marked for removal
+		public void attributesChanged(TargetObject object, Collection<String> removed,
+		                              ^
+MonitorModelEventsScript.java:35: warning: [removal] ghidra.dbg.target.TargetObject in ghidra.dbg.target has been deprecated and marked for removal
+		public void elementsChanged(TargetObject object, Collection<String> removed,
+		                            ^
+MonitorModelEventsScript.java:36: warning: [removal] ghidra.dbg.target.TargetObject in ghidra.dbg.target has been deprecated and marked for removal
+				Map<String, ? extends TargetObject> added) {
+				                      ^
+MonitorModelEventsScript.java:42: warning: [removal] ghidra.dbg.target.TargetObject in ghidra.dbg.target has been deprecated and marked for removal
+		public void event(TargetObject object, TargetThread eventThread, TargetEventType type,
+		                  ^
+MonitorModelEventsScript.java:42: warning: [removal] ghidra.dbg.target.TargetThread in ghidra.dbg.target has been deprecated and marked for removal
+		public void event(TargetObject object, TargetThread eventThread, TargetEventType type,
+		                                       ^
+MonitorModelEventsScript.java:51: warning: [removal] ghidra.dbg.target.TargetObject in ghidra.dbg.target has been deprecated and marked for removal
+		public void invalidateCacheRequested(TargetObject object) {
+		                                     ^
+RefreshRegistersScript.java:34: warning: [removal] ghidra.dbg.DebuggerObjectModel in ghidra.dbg has been deprecated and marked for removal
+		DebuggerObjectModel model = modelService.getCurrentModel();
+		^
+RefreshRegistersScript.java:43: warning: [removal] ghidra.dbg.target.TargetRegisterBank in ghidra.dbg.target has been deprecated and marked for removal
+			model.getRootSchema().searchFor(TargetRegisterBank.class, true);
+			                                ^
+RefreshRegistersScript.java:44: warning: [removal] ghidra.dbg.target.TargetObject in ghidra.dbg.target has been deprecated and marked for removal
+		for (TargetObject objBank : allBanksMatcher.fetchSuccessors(model.fetchModelRoot().get())
+		     ^
+RefreshRegistersScript.java:48: warning: [removal] ghidra.dbg.target.TargetRegisterBank in ghidra.dbg.target has been deprecated and marked for removal
+			if (!(objBank instanceof TargetRegisterBank)) {
+			                         ^
+RefreshRegistersScript.java:51: warning: [removal] ghidra.dbg.target.TargetRegisterBank in ghidra.dbg.target has been deprecated and marked for removal
+			TargetRegisterBank bank = (TargetRegisterBank) objBank;
+			^
+RefreshRegistersScript.java:51: warning: [removal] ghidra.dbg.target.TargetRegisterBank in ghidra.dbg.target has been deprecated and marked for removal
+			TargetRegisterBank bank = (TargetRegisterBank) objBank;
+			                           ^
+RefreshRegistersScript.java:76: warning: [removal] ghidra.dbg.target.TargetRegisterBank in ghidra.dbg.target has been deprecated and marked for removal
+		Set<TargetRegisterBank> banks =
+		    ^
+RefreshRegistersScript.java:78: warning: [removal] ghidra.dbg.target.TargetRegisterBank in ghidra.dbg.target has been deprecated and marked for removal
+		for (TargetRegisterBank bank : banks) {
+		     ^
+BangAddressToMemory.java:98: warning: [removal] ghidra.dbg.DebuggerObjectModel in ghidra.dbg has been deprecated and marked for removal
+		DebuggerObjectModel model = modelService.getCurrentModel();
+		^
+AttributesFileParser.java:30: error: cannot find symbol
+	private Map<FSFile, DecmpfsHeader> map = new HashMap<FSFile, DecmpfsHeader>();
+	                                                     ^
+  symbol:   class FSFile
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:36: error: cannot find symbol
+        ImplHFSXFileSystemView hfsxFileSystemView = (ImplHFSXFileSystemView) handler.getFSView();
+        ^
+  symbol:   class ImplHFSXFileSystemView
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:36: error: cannot find symbol
+        ImplHFSXFileSystemView hfsxFileSystemView = (ImplHFSXFileSystemView) handler.getFSView();
+                                                     ^
+  symbol:   class ImplHFSXFileSystemView
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:37: error: cannot find symbol
+        HFSPlusVolumeHeader volumeHeader = hfsxFileSystemView.getHFSPlusVolumeHeader();
+        ^
+  symbol:   class HFSPlusVolumeHeader
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:39: error: cannot find symbol
+        HFSPlusForkData attributes = volumeHeader.getAttributesFile();
+        ^
+  symbol:   class HFSPlusForkData
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:61: error: cannot find symbol
+		    HFSCommonFSFile hfsFile = (HFSCommonFSFile)file;
+		    ^
+  symbol:   class HFSCommonFSFile
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:61: error: cannot find symbol
+		    HFSCommonFSFile hfsFile = (HFSCommonFSFile)file;
+		                               ^
+  symbol:   class HFSCommonFSFile
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:62: error: cannot find symbol
+		    CommonHFSCatalogFile catalogFile = hfsFile.getInternalCatalogFile();
+		    ^
+  symbol:   class CommonHFSCatalogFile
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:63: error: package CommonHFSCatalogFile does not exist
+		    CommonHFSCatalogFile.HFSPlusImplementation hfsPlusCatalogFile = (CommonHFSCatalogFile.HFSPlusImplementation)catalogFile;
+		                        ^
+AttributesFileParser.java:63: error: package CommonHFSCatalogFile does not exist
+		    CommonHFSCatalogFile.HFSPlusImplementation hfsPlusCatalogFile = (CommonHFSCatalogFile.HFSPlusImplementation)catalogFile;
+		                                                                                         ^
+AttributesFileParser.java:64: error: cannot find symbol
+		    HFSPlusCatalogFile underlying = hfsPlusCatalogFile.getUnderlying();
+		    ^
+  symbol:   class HFSPlusCatalogFile
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:65: error: cannot find symbol
+		    HFSCatalogNodeID fileID = underlying.getFileID();
+		    ^
+  symbol:   class HFSCatalogNodeID
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:85: error: cannot find symbol
+			CommonHFSForkData fork = CommonHFSForkData.create( volumeHeaderFile );
+			^
+  symbol:   class CommonHFSForkData
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:85: error: cannot find symbol
+			CommonHFSForkData fork = CommonHFSForkData.create( volumeHeaderFile );
+			                         ^
+  symbol:   variable CommonHFSForkData
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+AttributesFileParser.java:86: error: cannot find symbol
+			hfsxFileSystemView.extractForkToStream( fork, fork.getBasicExtents(), out, new NullProgressMonitor() {} );
+			                                                                               ^
+  symbol:   class NullProgressMonitor
+  location: class mobiledevices.dmg.hfsplus.AttributesFileParser
+DmgFileReader.java:39: error: cannot find symbol
+	private List<FSFolder> rootFolders = new ArrayList<FSFolder>();
+	                                                   ^
+  symbol:   class FSFolder
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:40: error: cannot find symbol
+	private List<FileSystemHandler> fileSystemHandlers = new ArrayList<FileSystemHandler>();
+	                                                                   ^
+  symbol:   class FileSystemHandler
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:50: error: cannot find symbol
+		if (WindowsLowLevelIO.isSystemSupported()) {
+		    ^
+  symbol:   variable WindowsLowLevelIO
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:51: error: cannot find symbol
+			rras = new WindowsLowLevelIO(file.getAbsolutePath());
+			           ^
+  symbol:   class WindowsLowLevelIO
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:54: error: cannot find symbol
+			rras = new ReadableFileStream(file.getAbsolutePath());
+			           ^
+  symbol:   class ReadableFileStream
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:57: error: cannot find symbol
+		if (ReadableCEncryptedEncodingStream.isCEncryptedEncoding(rras)) {
+		    ^
+  symbol:   variable ReadableCEncryptedEncodingStream
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:62: error: cannot find symbol
+		if (UDIFRecognizer.isUDIF(rras)) {
+		    ^
+  symbol:   variable UDIFRecognizer
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:65: error: cannot find symbol
+			UDIFFile udifFile = new UDIFFile(new ReadableFileStream(file.getAbsolutePath()));
+			^
+  symbol:   class UDIFFile
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:65: error: cannot find symbol
+			UDIFFile udifFile = new UDIFFile(new ReadableFileStream(file.getAbsolutePath()));
+			                        ^
+  symbol:   class UDIFFile
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:65: error: cannot find symbol
+			UDIFFile udifFile = new UDIFFile(new ReadableFileStream(file.getAbsolutePath()));
+			                                     ^
+  symbol:   class ReadableFileStream
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:68: error: cannot find symbol
+			UDIFRandomAccessStream stream = new UDIFRandomAccessStream(rras);
+			^
+  symbol:   class UDIFRandomAccessStream
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:68: error: cannot find symbol
+			UDIFRandomAccessStream stream = new UDIFRandomAccessStream(rras);
+			                                    ^
+  symbol:   class UDIFRandomAccessStream
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:75: error: cannot find symbol
+		PartitionSystemRecognizer partitionSystemRecognizer = new PartitionSystemRecognizer(rras);
+		^
+  symbol:   class PartitionSystemRecognizer
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:75: error: cannot find symbol
+		PartitionSystemRecognizer partitionSystemRecognizer = new PartitionSystemRecognizer(rras);
+		                                                          ^
+  symbol:   class PartitionSystemRecognizer
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:76: error: cannot find symbol
+		PartitionSystem partitionSystem = partitionSystemRecognizer.getPartitionSystem();
+		^
+  symbol:   class PartitionSystem
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:82: error: cannot find symbol
+		Partition[] partitions = partitionSystem.getUsedPartitionEntries();
+		^
+  symbol:   class Partition
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:83: error: cannot find symbol
+		for (Partition partition : partitions) {
+		     ^
+  symbol:   class Partition
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:96: error: cannot find symbol
+        FileSystemRecognizer fsr = new FileSystemRecognizer( rras, fsOffset );
+        ^
+  symbol:   class FileSystemRecognizer
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:96: error: cannot find symbol
+        FileSystemRecognizer fsr = new FileSystemRecognizer( rras, fsOffset );
+                                       ^
+  symbol:   class FileSystemRecognizer
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:97: error: package FileSystemRecognizer does not exist
+        FileSystemRecognizer.FileSystemType fsType = fsr.detectFileSystem();
+                            ^
+DmgFileReader.java:99: error: package FileSystemRecognizer does not exist
+        if ( fsType == FileSystemRecognizer.FileSystemType.HFS_PLUS ||
+                                           ^
+DmgFileReader.java:100: error: package FileSystemRecognizer does not exist
+        	 fsType == FileSystemRecognizer.FileSystemType.HFSX ||
+        	                               ^
+DmgFileReader.java:101: error: package FileSystemRecognizer does not exist
+        	 fsType == FileSystemRecognizer.FileSystemType.HFS ) {
+        	                               ^
+DmgFileReader.java:103: error: cannot find symbol
+            final FileSystemMajorType fsMajorType;
+                  ^
+  symbol:   class FileSystemMajorType
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:106: error: cannot find symbol
+                    fsMajorType = FileSystemMajorType.APPLE_HFS;
+                                  ^
+  symbol:   variable FileSystemMajorType
+  location: class mobiledevices.dmg.reader.DmgFileReader
+DmgFileReader.java:109: error: cannot find symbol
+                    fsMajorType = FileSystemMajorType.APPLE_HFS_PLUS;
+                                  ^
+  symbol:   variable FileSystemMajorType
+  location: class mobiledevices.dmg.reader.DmgFileReader
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files additionally use or override a deprecated API that is marked for removal.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBLaunchInfo.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBExecutionContext.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeMemberFunction.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBThread.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpointName.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBStream.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFrame.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeFormat.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBlock.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpoint.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBReproducer.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBValueList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeEnumMember.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommandReturnObject.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBProcess.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBLanguageRuntime.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBThreadPlan.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/reader/DmgInputStream.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/server/DmgServer.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTraceCursor.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeSummaryOptions.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeSynthetic.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBModuleSpecList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBModuleSpec.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBUnixSignals.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpointLocation.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBDeclaration.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommandInterpreter.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBExpressionOptions.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/hfsplus/AttributesFileParser.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBStructuredData.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/reader/DmgInfoGenerator.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBModule.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBAttachInfo.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTarget.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-agent-dbgmodel-traceloader/ghidra_scripts/BangAddressToMemory.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBMemoryRegionInfo.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBroadcaster.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTrace.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSection.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBPlatformConnectOptions.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFileSpecList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBPlatform.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeCategory.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBVariablesOptions.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeSummary.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/GPL/DMG/src/dmg/java/mobiledevices/dmg/reader/DmgFileReader.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBMemoryRegionInfoList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommunication.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBDebugger.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBScriptObject.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBEvent.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeMember.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-agent-dbgmodel-traceloader/ghidra_scripts/PopulateTraceRemote.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSymbol.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Features/Base/ghidra_scripts/AutoRenameLabelsScript.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBPlatformShellCommand.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSymbolContext.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeNameSpecifier.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCommandInterpreterRunOptions.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/docs/GhidraClass/Debugger/ghidra_scripts/ZeroTimerScript.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBThreadCollection.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFunction.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSourceManager.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBHostOS.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBQueueItem.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBValue.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBData.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBAddress.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBQueue.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts/RefreshRegistersScript.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBLineEntry.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBEnvironment.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBError.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBBreakpointList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBStringList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/ByteArray.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBWatchpoint.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeEnumMemberList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBType.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFile.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBInstruction.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBCompileUnit.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts/MonitorModelEventsScript.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBProcessInfo.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBFileSpec.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBTypeFilter.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBListener.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBSymbolContextList.java
+skipping /home/runner/work/ipa-decompile/ipa-decompile/ghidra_11.2.1_PUBLIC/Ghidra/Debug/Debugger-swig-lldb/src/main/java/SWIG/SBInstructionList.java
+ERROR REPORT SCRIPT ERROR: decompile_all.java : The class could not be found. It must be the public class of the .java file: decompile_all (HeadlessAnalyzer) ghidra.app.script.GhidraScriptLoadException: The class could not be found. It must be the public class of the .java file: decompile_all
+	at ghidra.app.script.JavaScriptProvider.getScriptInstance(JavaScriptProvider.java:110)
+	at ghidra.app.util.headless.HeadlessAnalyzer.runScriptsList(HeadlessAnalyzer.java:912)
+	at ghidra.app.util.headless.HeadlessAnalyzer.analyzeProgram(HeadlessAnalyzer.java:1074)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processFileWithImport(HeadlessAnalyzer.java:1563)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithLoader(HeadlessAnalyzer.java:1745)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1686)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1770)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processLocal(HeadlessAnalyzer.java:457)
+	at ghidra.app.util.headless.AnalyzeHeadless.launch(AnalyzeHeadless.java:198)
+	at ghidra.GhidraLauncher.launch(GhidraLauncher.java:81)
+	at ghidra.Ghidra.main(Ghidra.java:54)
+Caused by: java.lang.ClassNotFoundException: decompile_all
+	at org.apache.felix.framework.Felix.loadBundleClass(Felix.java:2102)
+	at org.apache.felix.framework.BundleImpl.loadClass(BundleImpl.java:986)
+	at ghidra.app.script.JavaScriptProvider.loadClass(JavaScriptProvider.java:161)
+	at ghidra.app.script.JavaScriptProvider.getScriptInstance(JavaScriptProvider.java:96)
+	... 10 more
+Caused by: org.osgi.framework.BundleException: Unable to resolve 82f08caf [1](R 1.0): missing requirement [82f08caf [1](R 1.0)] osgi.ee; (osgi.ee=UNKNOWN) Unresolved requirements: [[82f08caf [1](R 1.0)] osgi.ee; (osgi.ee=UNKNOWN)]
+	at org.apache.felix.framework.Felix.resolveBundleRevision(Felix.java:4398)
+	at org.apache.felix.framework.Felix.loadBundleClass(Felix.java:2095)
+	... 13 more
+ 
+INFO  ANALYZING changes made by post scripts: file:///home/runner/work/ipa-decompile/ipa-decompile/binaries/TrollInstallerX_original (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: file:///home/runner/work/ipa-decompile/ipa-decompile/binaries/TrollInstallerX_original (HeadlessAnalyzer)  
+INFO  REPORT: Save succeeded for: /TrollInstallerX_original (original:/TrollInstallerX_original) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  
+=== Output files: ===
+total 8
+drwxr-xr-x 2 runner runner 4096 May  2 06:29 .
+drwxr-xr-x 3 runner runner 4096 May  2 06:29 ..

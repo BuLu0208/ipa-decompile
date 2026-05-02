@@ -17,13 +17,22 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Verify Java version & Download Ghidra
+      - name: Install Ghidra + setup
         run: |
+          echo "=== Setup ==="
           echo "JAVA_HOME=$JAVA_HOME"
-          java -version
+          "$JAVA_HOME/bin/java" -version
+          echo "System java:"
+          /usr/bin/java -version 2>&1 || true
+          echo "Downloading Ghidra..."
           wget -q https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.2.1_build/ghidra_11.2.1_PUBLIC_20241105.zip
           unzip -q ghidra_11.2.1_PUBLIC_20241105.zip
           echo "GHIDRA_HOME=$PWD/ghidra_11.2.1_PUBLIC" >> $GITHUB_ENV
+          # Fix BOM if present
+          sed -i '1s/^\xEF\xBB\xBF//' decompile_all.java
+          # Patch analyzeHeadless to force Java 17
+          sed -i '2i export PATH="'"$JAVA_HOME"'/bin:$PATH"' ghidra_11.2.1_PUBLIC/support/analyzeHeadless
+          sed -i '2i export JAVA_HOME="'"$JAVA_HOME"'"' ghidra_11.2.1_PUBLIC/support/analyzeHeadless
 
       - name: Prepare binaries
         run: |
@@ -32,17 +41,10 @@ jobs:
           cp "/tmp/orig/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_original"
           unzip -o "modified.ipa" -d /tmp/mod
           cp "/tmp/mod/Payload/TrollInstallerX.app/TrollInstallerX" "binaries/TrollInstallerX_modified"
-          file binaries/*
 
-      - name: Decompile Original Binary
-        env:
-          GHIDRA_OPTS: "-Dorg.osgi.framework.system.capabilities=osgi.ee;osgi.ee=JavaSE/1.8,osgi.ee=JavaSE/17"
+      - name: Decompile Original
         run: |
           mkdir -p /tmp/ghidra_proj output/original
-          echo "=== Java being used: ==="
-          "$JAVA_HOME/bin/java" -version
-          echo "=== Starting original decompilation ==="
-          export JAVA_HOME_OVERRIDE="$JAVA_HOME"
           "$GHIDRA_HOME/support/analyzeHeadless" \
             /tmp/ghidra_proj original \
             -import "$PWD/binaries/TrollInstallerX_original" \
@@ -50,16 +52,11 @@ jobs:
             -scriptPath "$PWD" \
             -processor "AARCH64:LE:64:v8A" \
             -max-cpu 4
-          echo "=== Output files: ==="
-          ls -la output/original/ 2>&1 || echo "EMPTY"
+          ls -la output/original/ || echo "EMPTY"
 
-      - name: Decompile Modified Binary
-        env:
-          GHIDRA_OPTS: "-Dorg.osgi.framework.system.capabilities=osgi.ee;osgi.ee=JavaSE/1.8,osgi.ee=JavaSE/17"
+      - name: Decompile Modified
         run: |
           mkdir -p /tmp/ghidra_proj2 output/modified
-          echo "=== Starting modified decompilation ==="
-          export JAVA_HOME_OVERRIDE="$JAVA_HOME"
           "$GHIDRA_HOME/support/analyzeHeadless" \
             /tmp/ghidra_proj2 modified \
             -import "$PWD/binaries/TrollInstallerX_modified" \
@@ -67,8 +64,7 @@ jobs:
             -scriptPath "$PWD" \
             -processor "AARCH64:LE:64:v8A" \
             -max-cpu 4
-          echo "=== Output files: ==="
-          ls -la output/modified/ 2>&1 || echo "EMPTY"
+          ls -la output/modified/ || echo "EMPTY"
 
       - name: Upload results
         uses: actions/upload-artifact@v4
