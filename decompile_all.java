@@ -1,6 +1,6 @@
-// Ghidra headless script: DecompileAllFunctions.java
+﻿// Ghidra headless script: decompile_all.java
 // Full decompilation - export ALL functions
-// Usage: -postScript DecompileAllFunctions.java <output_dir>
+// Usage: -postScript decompile_all.java <output_dir>
 // @category Decompile
 
 import ghidra.app.decompiler.DecompInterface;
@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-public class DecompileAllFunctions extends GhidraScript {
+public class decompile_all extends GhidraScript {
     
     @Override
     public void run() throws Exception {
@@ -130,3 +130,4 @@ public class DecompileAllFunctions extends GhidraScript {
         println("  - " + xrefFile.getName());
     }
 }
+
